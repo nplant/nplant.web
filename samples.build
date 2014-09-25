@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<project name="setupModuleDev" default="main" basedir=".">
+
+	<property name="samples.assembly" value="bin\Debug\NPlant.Samples.dll" />
+	<property name="src.dir" value="Src" />
+	<property name="manifest.path" value="NPlant.Web\Manifest.xml" />
+
+	<target name="main">
+		<loadtasks assembly="..\..\bin\Debug\NPlant.NAntTasks.dll" />
+		<nplant-samples-manifest-gen 
+			assembly="${samples.assembly}" 
+			src="${src.dir}" 
+			out="${manifest.path}" verbose="true" />
+	</target>
+
+</project>

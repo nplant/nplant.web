@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "NPlant Home";
+}
+
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="nuget-badge">
+            <p>
+                <code>PM> Install-Package NPlant.API</code>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>What is it?</h2>
+            <p>
+                NPlant is library that offers a Fluent API for .NET.  It provides a code-based DSL for creating diagrams that can be used to generate <a href="http://plantuml.sourceforge.net/" target="_blank">PlantUML</a> notation, and in turn a visual artifact (image).
+            </p>
+            <p>
+                Currently NPlant focuses solely on provide class diagrams based on C# class structures.  There are aspirations for other diagram types, but nothing in the works yet.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Why NPlant?</h2>
+            <p>When you want to document your existing system, you need to capture your UML articts in a manner that can age well with your software.  Maintaining diagrams out of band with the source code is tedious and error prone.  NPlant brings the diagram source together with the application code.  This allows you to version, build and continuously integrate your application and diagram source together for fast feedback loops.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>What about PlantUML?</h2>
+            <p><a href="http://plantuml.sourceforge.net/" target="_blank">PlantUML</a> does all of the heavily lifting here.  NPlant is a thin layer on top that converts the C# code you write into PlantUML notation.  Authoring PlantUML still makes great since in many scenarios.  NPlant aims to make the process of documenting existing software easier and in a more maintainable fashion.</p>
+        </div>
+    </div>
+</div>

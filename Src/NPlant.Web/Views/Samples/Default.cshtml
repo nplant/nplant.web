@@ -1,0 +1,120 @@
+﻿@model NPlant.Web.Models.Samples.SamplesListModel
+@{
+    ViewBag.Title = "Samples";
+}
+<h2>@ViewBag.Title.</h2>
+
+<style type="text/css" media="screen">
+    #editor {
+        position: relative;
+        height: 500px;
+        width: 600px;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+
+            <div class="panel-group" id="accordion">
+                @foreach (var group in this.Model.Groups)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse@(group.Id)">@group.Name</a>
+                            </h4>
+                        </div>
+                        <div id="collapse@(group.Id)" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    @foreach (var sample in group.Samples)
+                                    {
+                                        <li class="list-group-item"><a href="#" class="sample-link" data-url="@Url.SamplesSource(sample.Id)" title="@sample.Description">@sample.Name</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+            <div class="col-lg-8">
+                <div id="editor"></div>
+                <p><a class="btn btn-primary" role="button" id="render-button" data-url="@Url.SamplesCompile()">Render</a></p>
+                
+                <div id="image-modal" >
+                    <div class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">Generated Diagram</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img class="generated-image" src="@Url.Content("~/Content/spiffygif_30x30.gif")" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        @section scripts {
+            @Scripts.Render("~/bundles/ace")
+            <script>
+                var editor = ace.edit("editor");
+                editor.setTheme("ace/theme/github");
+                editor.getSession().setMode("ace/mode/csharp");
+
+                $(document).ready(function () {
+                    $('.collapse').collapse();
+                    $('.sample-link').click(function () {
+                        var url = $(this).data('url');
+                        $.getJSON(url, {}, function (data) {
+                            editor.setValue(data.src);
+                            editor.focus();
+                            editor.scrollToLine(1, false, false);
+                            editor.gotoLine(1, 1, false);
+                        });
+                        return false;
+                    });
+
+                    $('#render-button').click(function () {
+                        var code = editor.getValue();
+
+                        console.log(code);
+
+                        var modal = $($('#image-modal').html()).clone().appendTo('body').modal('show').on('hidden.bs.modal', function() {
+                            $(this).remove();
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: $(this).data('url'),
+                            data: {
+                                code: code
+                            },
+                            success: function (output) {
+                                console.log(output);
+
+                                if (output.Successful) {
+                                    $('.generated-image', modal).attr('src', output.Url);
+                                } else {
+                                    $('.generated-image', modal).attr('src', null);
+                                    console.log(output);
+                                    alert('something failed - check the console logs for details');
+                                }
+                            },
+                            dataType: 'json'
+                        });
+                    });
+                });
+            </script>
+        }

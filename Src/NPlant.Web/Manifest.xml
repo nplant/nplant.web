@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<samples>
+  <sample id="NPlant.Samples.Enums.SimpleEnumDiagram" name="SimpleEnumDiagram" description="SimpleEnumDiagram" group="Enums">
+  <![CDATA[using System;
+
+namespace NPlant.Samples.Enums
+{
+    [SampleAttribute]
+    public class SimpleEnumDiagram : ClassDiagram
+    {
+        public SimpleEnumDiagram()
+        {
+            AddClass<Foo>();
+            AddEnum<RandomEnum>();
+        }
+    }
+
+    public class Foo
+    {
+        public string SomeString;
+        public Bar TheBar;
+        public Baz TheBaz;
+    }
+
+    public class Bar
+    {
+        public DateTime? SomeDate;
+        public BarTypes Type;
+    }
+
+    public enum RandomEnum
+    {
+        Member1,
+        Member2,
+        Member3
+    }
+    public enum BarTypes
+    {
+        HighBar,
+        LowBar
+    }
+
+    public class Baz
+    {
+        public Foo TheFoo;
+    }
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.Inheritance.SimpleInheritanceDiagram" name="SimpleInheritanceDiagram" description="SimpleInheritanceDiagram" group="Inheritance">
+  <![CDATA[using System;
+
+namespace NPlant.Samples.Inheritance
+{
+    public class SimpleInheritanceDiagram : ClassDiagram
+    {
+        public SimpleInheritanceDiagram()
+        {
+            this.GenerationOptions.ForType<AbstractBase>().HideAsBase();
+            AddClass<Foo>();
+        }
+    }
+
+    public abstract class AbstractBase
+    {
+        public string SomeString;
+    }
+
+    public class Foo : AbstractBase
+    {
+        public Bar TheBar;
+        public Baz TheBaz;
+    }
+
+    public class Bar : Foo
+    {
+        public DateTime? SomeDate;
+
+    }
+
+    public class Baz
+    {
+        public Foo TheFoo;
+    }
+}
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.CircularReferences.SimpleRecursiveDiagram" name="SimpleRecursiveDiagram" description="SimpleRecursiveDiagram" group="CircularReferences">
+  <![CDATA[using System;
+
+namespace NPlant.Samples.CircularReferences
+{
+    [SampleAttribute]
+    public class SimpleRecursiveDiagram : ClassDiagram
+    {
+        public SimpleRecursiveDiagram()
+        {
+            AddClass<Foo>();
+        }
+    }
+
+    public class Foo
+    {
+        public string SomeString;
+        public Bar TheBar;
+        public Baz TheBaz;
+    }
+
+    public class Bar
+    {
+        public DateTime? SomeDate;
+
+    }
+
+    public class Baz
+    {
+        public Foo TheFoo;
+    }
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.Legends.SimpleLegendDiagram" name="SimpleLegendDiagram" description="SimpleLegendDiagram" group="Legends">
+  <![CDATA[namespace NPlant.Samples.Legends
+{
+    public class SimpleLegendDiagram : ClassDiagram
+    {
+        public SimpleLegendDiagram()
+        {
+            this.AddClass<Foo>();
+            this.AddClass<Bar>();
+            this.LegendOf("This is my legend")
+                .DisplayLeft();
+        }
+    }
+    public class Foo { }
+    public class Bar { }
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.Notes.SimpleNotesDiagram" name="SimpleNotesDiagram" description="SimpleNotesDiagram" group="Notes">
+  <![CDATA[namespace NPlant.Samples.Notes
+{
+    public class SimpleNotesDiagram : ClassDiagram
+    {
+        public SimpleNotesDiagram()
+        {
+            this.AddClass<Foo>();
+            this.AddClass<Bar>();
+            this.AddNote("this is a note");
+            this.AddNote("this is another note")
+                    .AddLine("with another line");
+            this.AddNote("this is connected note")
+                    .AddLine("with another line")
+                    .ConnectedToClass<Foo>()
+                    .ConnectedToClass<Bar>();
+        }
+    }
+    public class Foo { }
+    public class Bar { }
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.Packages.SimplePackageDiagram" name="SimplePackageDiagram" description="SimplePackageDiagram" group="Packages">
+  <![CDATA[using System;
+
+namespace NPlant.Samples.Packages
+{
+    public class SimplePackageDiagram : ClassDiagram
+    {
+        public SimplePackageDiagram()
+        {
+            AddClass<Foo>();
+
+
+            AddPackage("Package A")
+                .IncludeClassesWhere(descriptor => descriptor.ReflectedType == typeof(Foo))
+                .IncludeClassesWhere(descriptor => descriptor.ReflectedType == typeof(Bar));
+
+            AddPackage("Package B")
+                .IncludeClassesWhere(descriptor => descriptor.ReflectedType == typeof (Baz));
+
+        }
+    }
+
+    public class Foo
+    {
+        public Bar TheBar;
+        public Baz TheBaz;
+    }
+
+    public class Bar : Foo
+    {
+        public DateTime? SomeDate;
+
+    }
+
+    public class Baz
+    {
+        public Foo TheFoo;
+    }
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.Relationships.BidirectionalAssociationDiagram" name="BidirectionalAssociationDiagram" description="BidirectionalAssociationDiagram" group="Relationships">
+  <![CDATA[using System.Collections.Generic;
+
+namespace NPlant.Samples.Relationships
+{
+    public class BidirectionalAssociationDiagram : ClassDiagram
+    {
+        public BidirectionalAssociationDiagram()
+        {
+            base.AddClass<Order>();
+        }
+    }
+
+    public class Order
+    {
+        public long Id;
+        public IList<OrderItem> Items;
+    }
+
+    public class OrderItem
+    {
+        public long Id;
+        public Order Order;
+        public Product Product;
+        public Price Price;
+    }
+
+    public class Product
+    {
+        public long Id;
+        public string Name;
+        public string Description;
+    }
+
+    public class Price
+    {
+        public long Id;
+        public string Name;
+        public string Description;
+        public decimal Amount;
+    }
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.ScanMode.SimpleScanModeDiagram" name="SimpleScanModeDiagram" description="SimpleScanModeDiagram" group="ScanMode">
+  <![CDATA[using System;
+using System.Runtime.Serialization;
+using NPlant.Generation.ClassDiagraming;
+
+namespace NPlant.Samples.ScanMode
+{
+    public class SimpleScanModeDiagram : ClassDiagram
+    {
+        public SimpleScanModeDiagram()
+        {
+            base.GenerationOptions.ScanModeOf(ClassDiagramScanModes.AllMembers);
+            AddClass<Foo>();
+        }
+    }
+
+    public class Foo
+    {
+        public Bar TheBar;
+        public Baz TheBaz;
+        private int IAmPrivate;
+        internal bool IAmInternal;
+        protected string IAmProtected;
+        public short IAmPublic;
+    }
+
+    public class Bar : Foo
+    {
+        public DateTime? SomeDate;
+
+    }
+
+    public class Baz
+    {
+        public Foo TheFoo;
+    }
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.FullMonty.FullMontyClassDiagram" name="FullMontyClassDiagram" description="FullMontyClassDiagram" group="FullMonty">
+  <![CDATA[using System;
+
+namespace NPlant.Samples.FullMonty
+{
+    public class FullMontyClassDiagram : ClassDiagram
+    {
+        public FullMontyClassDiagram()
+        {
+            this.GenerationOptions.ShowMethods();
+
+            AddClass<Foo>();
+        }
+    }
+
+    public class Foo
+    {
+        public string SomeString;
+        public Bar TheBar;
+        public Baz<Arg1, Arg2> TheBaz;
+        public Baz2<Arg1, Arg2> TheBaz2;
+
+        public void DoSomethingOnFoo() { }
+        public void DoSomethingOnFoo(string parm1) { }
+        public void DoSomethingOnFoo(string parm1, DateTime? parm2, Bar parm3) { }
+    }
+
+    public class Bar
+    {
+        public DateTime? SomeDate;
+
+        public void DoSomethingOnBar() { }
+        public void DoSomethingOnBar(string parm1) { }
+        public void DoSomethingOnBar(string parm1, DateTime? parm2, Baz<Arg1, Arg2> parm3) { }
+    }
+
+    public class Baz<T1, T2>
+    {
+        public Foo TheFoo;
+
+        public T1 Arg1;
+
+        public T2 Arg2;
+    }
+
+    public class Baz2<T1, T2>
+    {
+        public Baz2()
+        {
+            this.Whatever = typeof (T1).Name + typeof (T2).Name;
+        }
+
+        public string Whatever;
+    }
+
+    public class Arg1 { }
+    public class Arg2{}
+}
+
+  ]]>
+  </sample>
+  <sample id="NPlant.Samples.Titles.SimpleTitledClassDiagram" name="SimpleTitledClassDiagram" description="SimpleTitledClassDiagram" group="Titles">
+  <![CDATA[namespace NPlant.Samples.Titles
+{
+    public class SimpleTitledClassDiagram : ClassDiagram
+    {
+        public SimpleTitledClassDiagram()
+        {
+            Titled("This is a big fat title using <i><b>html!</b></i>");
+        }
+    }
+
+    public class Foo
+    {
+        public string SomeField;
+    }
+}
+
+  ]]>
+  </sample>
+</samples>
