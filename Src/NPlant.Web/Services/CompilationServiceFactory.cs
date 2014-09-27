@@ -18,14 +18,11 @@ namespace NPlant.Web.Services
             AppDomainSetup domainSetup = new AppDomainSetup
             {
                 ApplicationName = appDomain,
-                ApplicationBase = AppDomain.CurrentDomain.BaseDirectory
+                ApplicationBase = Path.GetDirectoryName(new Uri(typeof(WebRoot).Assembly.CodeBase).LocalPath)
             };
 
             _localAppDomain = AppDomain.CreateDomain(appDomain, null, domainSetup);
  
-            DumpAssemblies();
-
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
             string path = new Uri(typeof(CompilationService).Assembly.CodeBase).LocalPath;
 
@@ -44,31 +41,6 @@ namespace NPlant.Web.Services
             {
                 Debug.WriteLine(assembly.GetName().FullName);
             }
-        }
-
-        Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            try
-            {
-                Assembly assembly = Assembly.Load(args.Name);
-                if (assembly != null)
-                    return assembly;
-            }
-            catch (ReflectionTypeLoadException)
-            {
-                // ignore load error 
-            }
-            catch (Exception ex)
-            {
-                if (ex.IsFatal())
-                    throw;
-                // ignore load error 
-            }
-
-            string[] parts = args.Name.Split(',');
-            string file = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\" + parts[0].Trim() + ".dll";
-
-            return Assembly.LoadFrom(file);
         }
 
         public void Dispose()
