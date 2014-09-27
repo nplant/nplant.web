@@ -3,8 +3,9 @@
     public class CompileResult
     {
         public bool Successful { get; set; }
-        public CompileError[] Errors { get; set; }
+        public CompileError[] CompilationErrors { get; set; }
         public string Url { get; set; }
+        public string Message { get; set; }
     }
 
     public class CompileError

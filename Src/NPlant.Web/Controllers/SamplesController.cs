@@ -1,18 +1,11 @@
 ﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using Microsoft.CSharp;
-using NPlant.Generation.ClassDiagraming;
-using NPlant.Samples;
 using NPlant.Web.Models.Samples;
 using NPlant.Web.Services;
 
 namespace NPlant.Web.Controllers
 {
+    [Serializable]
     public class SamplesController : Controller
     {
         public ActionResult Default()
@@ -26,56 +19,34 @@ namespace NPlant.Web.Controllers
         [ValidateInput(false)]
         public JsonResult Compile(string code)
         {
-            var provider = new CSharpCodeProvider();
-            var parameters = new CompilerParameters
+            string notation = null;
+            CompileResult model;
+
+            using (var factory = new CompilationServiceFactory())
             {
-                GenerateExecutable = false, GenerateInMemory = true
-            };
+                var compilationService = factory.Create();
 
-            parameters.ReferencedAssemblies.Add(typeof(ClassDiagram).Assembly.Location);
-            parameters.ReferencedAssemblies.Add(typeof(SamplesRoot).Assembly.Location);
-
-            code = "using NPlant.Samples;" + Environment.NewLine + code;
-            
-            var results = provider.CompileAssemblyFromSource(parameters, code);
-
-            if (results.Errors != null && results.Errors.HasErrors)
-            {
-                return Json(new CompileResult
+                if (compilationService.Compile(code))
                 {
-                    Successful = false,
-                    Errors = BuildErrors(results.Errors)
-                });
-                
+                    notation = compilationService.Run();
+                }
+
+                model = new CompileResult
+                {
+                    Successful = compilationService.Successful,
+                    Message = compilationService.Message,
+                    CompilationErrors = compilationService.CompilationErrors
+                };
             }
 
-            //TODO:  need to add error handling here to disallow anything about exactly 1 diagram
-            var diagramType = results.CompiledAssembly.GetTypes().FirstOrDefault(x => typeof(ClassDiagram).IsAssignableFrom(x));
+            string url = null;
 
-            var diagram = (ClassDiagram)Activator.CreateInstance(diagramType);
-            var text = BufferedClassDiagramGenerator.GetDiagramText(diagram);
+            if(model.Successful && !notation.IsNullOrEmpty())
+                url = new PlantUmlUrl(notation).GetUrl();
 
-            var url = new PlantUmlUrl(text);
-            
-            return Json(new CompileResult
-            {
-                Successful = true,
-                Url = url.GetUrl()
-            });
-        }
+            model.Url = url;
 
-        private CompileError[] BuildErrors(CompilerErrorCollection errors)
-        {
-            var result = errors.Cast<CompilerError>().Select(error => new CompileError
-            {
-                Column = error.Column,
-                Line = error.Line,
-                IsWarning = error.IsWarning,
-                ErrorNumber = error.ErrorNumber,
-                ErrorText = error.ErrorText
-            });
-            
-            return result.ToArray();
+            return Json(model);
         }
 
         [HttpGet]

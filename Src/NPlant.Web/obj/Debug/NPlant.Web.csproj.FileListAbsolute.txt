@@ -55,6 +55,6 @@ C:\GitHub\nplant.web\Src\NPlant.Web\bin\System.Web.WebPages.Deployment.xml
 C:\GitHub\nplant.web\Src\NPlant.Web\bin\System.Web.WebPages.Razor.xml
 C:\GitHub\nplant.web\Src\NPlant.Web\bin\Antlr3.Runtime.pdb
 C:\GitHub\nplant.web\Src\NPlant.Web\bin\Newtonsoft.Json.xml
-C:\GitHub\nplant.web\Src\NPlant.Web\obj\Debug\NPlant.Web.csprojResolveAssemblyReference.cache
 C:\GitHub\nplant.web\Src\NPlant.Web\obj\Debug\NPlant.Web.dll
 C:\GitHub\nplant.web\Src\NPlant.Web\obj\Debug\NPlant.Web.pdb
+C:\GitHub\nplant.web\Src\NPlant.Web\obj\Debug\NPlant.Web.csprojResolveAssemblyReference.cache
