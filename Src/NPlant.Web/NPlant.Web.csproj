@@ -41,6 +41,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="NPlant, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NPlant.API.0.1.39.0\lib\net40\NPlant.dll</HintPath>
@@ -123,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Services\ClassDiagramCodeValidator.cs" />
     <Compile Include="Services\CompilationService.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
@@ -131,6 +144,7 @@
     <Compile Include="Models\Samples\CompileResult.cs" />
     <Compile Include="Models\Samples\SampleGroupModel.cs" />
     <Compile Include="Models\Samples\SampleModel.cs" />
+    <Compile Include="Services\ICompilationService.cs" />
     <Compile Include="Services\PlantUmlUrl.cs" />
     <Compile Include="Controllers\SamplesController.cs" />
     <Compile Include="Global.asax.cs">
