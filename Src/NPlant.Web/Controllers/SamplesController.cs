@@ -20,33 +20,35 @@ namespace NPlant.Web.Controllers
         public JsonResult Compile(string code)
         {
             string notation = null;
-            CompileResult model;
 
-            using (var factory = new CompilationServiceFactory())
+            using (var guard = new DiagramRunGuard())
             {
-                var compilationService = factory.Create();
-
-                if (compilationService.Compile(code))
+                CompileResult model;
+            
+                using (var scope = guard.CreateScope())
                 {
-                    notation = compilationService.Run();
+                    if (scope.Compile(code))
+                    {
+                        notation = scope.Run();
+                    }
+
+                    model = new CompileResult
+                    {
+                        Successful = scope.Successful,
+                        Message = scope.Message,
+                        CompilationErrors = scope.CompilationErrors
+                    };
                 }
 
-                model = new CompileResult
-                {
-                    Successful = compilationService.Successful,
-                    Message = compilationService.Message,
-                    CompilationErrors = compilationService.CompilationErrors
-                };
+                string url = null;
+
+                if(model.Successful && !notation.IsNullOrEmpty())
+                    url = new PlantUmlUrl(notation).GetUrl();
+
+                model.Url = url;
+
+                return Json(model);
             }
-
-            string url = null;
-
-            if(model.Successful && !notation.IsNullOrEmpty())
-                url = new PlantUmlUrl(notation).GetUrl();
-
-            model.Url = url;
-
-            return Json(model);
         }
 
         [HttpGet]

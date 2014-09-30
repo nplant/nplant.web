@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using NPlant.Web.Services;
 using NUnit.Framework;
@@ -11,30 +12,34 @@ namespace NPlant.Web.Test
         [Test]
         public void Complex_Diagram_Playing_Nice_Should_Succeed()
         {
-            using (var factory = new CompilationServiceFactory())
+            using (var guard = new DiagramRunGuard())
             {
-                var service = factory.Create();
-                string code = CreateComplexDiagram();
-                service.Compile(code);
+                using (var scope = guard.CreateScope())
+                {
+                    string code = CreateComplexDiagram();
+                    scope.Compile(code);
 
-                Assert.That(service.Successful, Is.True);
+                    Assert.That(scope.Successful, Is.True);
 
-                service.Run();
+                    scope.Run();
 
-                Assert.That(service.Successful, Is.True);
+                    Assert.That(scope.Successful, Is.True);
+                }
             }
         }
         
         [Test]
         public void Complex_Diagram_Not_Playing_Nice_Should_Fail()
         {
-            using (var factory = new CompilationServiceFactory())
+            using (var guard = new DiagramRunGuard())
             {
-                var service = factory.Create();
-                string code = CreateComplexDiagram("System.IO.File.WriteAllText(\"C:\\\\Temp\\\\Bad.stuff\", \"smelly!!!\");");
-                service.Compile(code);
+                using (var scope = guard.CreateScope())
+                {
+                    string code = CreateComplexDiagram("System.IO.File.WriteAllText(\"C:\\\\Temp\\\\Bad.stuff\", \"smelly!!!\");");
+                    scope.Compile(code);
 
-                Assert.That(service.Successful, Is.False);
+                    Assert.That(scope.Successful, Is.False);
+                }
             }
         }
 

@@ -144,6 +144,7 @@
     <Compile Include="Models\Samples\CompileResult.cs" />
     <Compile Include="Models\Samples\SampleGroupModel.cs" />
     <Compile Include="Models\Samples\SampleModel.cs" />
+    <Compile Include="Services\DiagramRunGuard.cs" />
     <Compile Include="Services\ICompilationService.cs" />
     <Compile Include="Services\PlantUmlUrl.cs" />
     <Compile Include="Controllers\SamplesController.cs" />
@@ -153,7 +154,7 @@
     <Compile Include="Models\Samples\SamplesListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ManifestReader.cs" />
-    <Compile Include="Services\CompilationServiceFactory.cs" />
+    <Compile Include="Services\DiagramRunScope.cs" />
     <Compile Include="UrlExtensions.cs" />
     <Compile Include="WebRoot.cs" />
   </ItemGroup>

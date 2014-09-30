@@ -90,4 +90,3 @@ C:\_github\nplant.web\Src\NPlant.Web\bin\Mono.Cecil.dll
 C:\_github\nplant.web\Src\NPlant.Web\bin\Mono.Cecil.Mdb.dll
 C:\_github\nplant.web\Src\NPlant.Web\bin\Mono.Cecil.Pdb.dll
 C:\_github\nplant.web\Src\NPlant.Web\bin\Mono.Cecil.Rocks.dll
-C:\_github\nplant.web\Src\NPlant.Web\obj\Debug\NPlant.Web.csprojResolveAssemblyReference.cache

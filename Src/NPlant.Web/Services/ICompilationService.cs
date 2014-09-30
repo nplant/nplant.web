@@ -1,8 +1,9 @@
+using System;
 using NPlant.Web.Models.Samples;
 
 namespace NPlant.Web.Services
 {
-    public interface ICompilationService
+    public interface ICompilationService : IDisposable
     {
         bool Successful { get; }
         string Message { get; }

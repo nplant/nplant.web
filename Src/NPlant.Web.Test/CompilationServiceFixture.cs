@@ -10,28 +10,32 @@ namespace NPlant.Web.Test
         [Test]
         public void Empty_Diagram_Compiles_And_Runs_Successfully()
         {
-            using (var factory = new CompilationServiceFactory())
+            using (var guard = new DiagramRunGuard())
             {
-                var service = factory.Create();
-                service.Compile("public class FooDiagram : NPlant.ClassDiagram {}");
+                using (var scope = guard.CreateScope())
+                {
+                    scope.Compile("public class FooDiagram : NPlant.ClassDiagram {}");
 
-                Assert.That(service.Successful, Is.True);
+                    Assert.That(scope.Successful, Is.True);
 
-                service.Run();
+                    scope.Run();
 
-                Assert.That(service.Successful, Is.True);
+                    Assert.That(scope.Successful, Is.True);
+                }
             }
         }
 
         [Test]
         public void Bunk_Diagram_Does_Not_Compile()
         {
-            using (var factory = new CompilationServiceFactory())
+            using (var guard = new DiagramRunGuard())
             {
-                var service = factory.Create();
-                service.Compile("public classsssss FooDiagram : NPlant.ClassDiagram {}");
+                using (var scope = guard.CreateScope())
+                {
+                    scope.Compile("public classsssss FooDiagram : NPlant.ClassDiagram {}");
 
-                Assert.That(service.Successful, Is.False);
+                    Assert.That(scope.Successful, Is.False);
+                }
             }
         }
 
@@ -44,21 +48,23 @@ namespace NPlant.Web.Test
 
             while (counter < 5)
             {
-                using (var factory = new CompilationServiceFactory())
+                using (var guard = new DiagramRunGuard())
                 {
-                    var service = factory.Create();
-                    service.Compile("public class FooDiagram : NPlant.ClassDiagram {}");
+                    using (var scope = guard.CreateScope())
+                    {
+                        scope.Compile("public class FooDiagram : NPlant.ClassDiagram {}");
 
-                    Assert.That(service.Successful, Is.True);
+                        Assert.That(scope.Successful, Is.True);
 
-                    service.Run();
+                        scope.Run();
 
-                    Assert.That(service.AppDomainId, Is.Not.EqualTo(id));
+                        Assert.That(scope.AppDomainId, Is.Not.EqualTo(id));
 
-                    counter++;
+                        counter++;
+                    }
+
+                    Assert.That(AppDomain.CurrentDomain.Id, Is.EqualTo(id));
                 }
-
-                Assert.That(AppDomain.CurrentDomain.Id, Is.EqualTo(id));
             }
         }
     }
