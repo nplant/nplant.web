@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPlant.Web", "Src\NPlant.Web\NPlant.Web.csproj", "{F7E5AC10-CA97-464E-8763-6BA67F2A1450}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3186FD1A-5785-4F0D-A447-FC55B2A689AB}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPlant.Web.Test", "Src\NPlant.Web.Test\NPlant.Web.Test.csproj", "{CB58C5E4-E891-4CE5-A7B2-795E69B5D7CB}"
 EndProject
