@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <samples>
   <sample id="NPlant.Samples.Enums.SimpleEnumDiagram" name="SimpleEnumDiagram" description="SimpleEnumDiagram" group="Enums">
   <![CDATA[using System;
 
 namespace NPlant.Samples.Enums
 {
-    [SampleAttribute]
+    [Sample]
     public class SimpleEnumDiagram : ClassDiagram
     {
         public SimpleEnumDiagram()
@@ -91,7 +91,7 @@ namespace NPlant.Samples.Inheritance
 
 namespace NPlant.Samples.CircularReferences
 {
-    [SampleAttribute]
+    [Sample]
     public class SimpleRecursiveDiagram : ClassDiagram
     {
         public SimpleRecursiveDiagram()

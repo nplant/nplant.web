@@ -1,2 +1,8 @@
+*.suo
 Src/NPlant.Web/bin/
 Src/NPlant.Web/obj/
+Bin/
+Src/NPlant.Web.Test/obj/
+Src/NPlant.Web.Test/bin/
+Src/NPlant.Web.ManifestGen/obj/
+Src/NPlant.Web.ManifestGen/bin/

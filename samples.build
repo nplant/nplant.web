@@ -2,15 +2,14 @@
 <project name="setupModuleDev" default="main" basedir=".">
 
 	<property name="samples.assembly" value="bin\Debug\NPlant.Samples.dll" />
-	<property name="src.dir" value="Src" />
-	<property name="manifest.path" value="NPlant.Web\Manifest.xml" />
+	<property name="src.dir" value="..\nplant\Src" />
+	<property name="manifest.path" value="Src\NPlant.Web\Manifest.xml" />
 
 	<target name="main">
-		<loadtasks assembly="..\..\bin\Debug\NPlant.NAntTasks.dll" />
-		<nplant-samples-manifest-gen 
-			assembly="${samples.assembly}" 
-			src="${src.dir}" 
-			out="${manifest.path}" verbose="true" />
+		<exec program="bin\Debug\NPlant.Web.ManifestGen.exe">
+			<arg value="${src.dir}" />
+			<arg value="${samples.assembly}" />
+			<arg value="${manifest.path}" />
+		</exec>
 	</target>
-
 </project>
