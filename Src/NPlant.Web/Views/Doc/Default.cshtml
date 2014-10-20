@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "NPlant Doc";
+}
+<h2>@ViewBag.Title.</h2>
+
+<h3>Getting Started</h3>
+<p>Before we get into what NPlant can do, it's important to first understand what it's designed to do.  NPlant class diagrams are class diagrams.  They are about displaying classes, there members and methods, and relationships to other classes.  NPlant does not strive to go beyond these goals.  If you are looking for tooling to generate the behavior or runtime semantics of your application, NPlant probably isn't going to help you.</p>
+<p>NPlant is designed around the Specification Pattern.  It requires that you define a class per artifact you would like it to generate and specify the content that should be produced for each artifact.  This class must extend a special base class or interface from NPlant.dll and compiled into an assembly.  That assembly can then be fed to the NPlant.UI.exe to be rendered to an image.  NPlant also provides a Nant task that is capable of generating images in bulk.</p>
+<p>NPlant Class Diagrams are designed to provide a way to bring your visual artifacts and the code they describe together so they can evolve as one.  Unlike some tooling approaches where artifacts are generated in a rigid fashion of one artifact per class or assembly, you have full control of the artifacts it produces.  This power requires you to do a small amount of up front work to create these specifications.  Typically, once you've created your first specification and gotten a feel for what NPlant can do and what level of detial you're looking for, the effort involved in creating each subsequent specification is trivial.</p>
+
+<h3>Hello World</h3>
+
+<h3>Real World Example</h3>
+For demonstration purposes, that's consider the following application domain:
+
+@Html.Partial("CodeSnippet", "OrderDomainModel");
+
+This is our application.  We would like to have class diagrams extracted from this implementation so they are guaranteed to be up to date and accurate with the current implementation.  That's where NPlant shines.  The 

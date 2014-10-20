@@ -136,6 +136,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\DocController.cs" />
     <Compile Include="Services\ClassDiagramCodeValidator.cs" />
     <Compile Include="Services\CompilationService.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -204,6 +205,7 @@
     <Content Include="Views\Contact\Default.cshtml" />
     <Content Include="Views\Download\Default.cshtml" />
     <Content Include="Views\Samples\Default.cshtml" />
+    <Content Include="Views\Doc\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
