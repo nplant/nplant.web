@@ -1,4 +1,5 @@
 *.suo
+packages/
 Src/NPlant.Web/bin/
 Src/NPlant.Web/obj/
 Bin/
