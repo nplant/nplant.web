@@ -1,5 +1,84 @@
 ﻿@{
     ViewBag.Title = "About NPlant";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+
+<h3>How does it work?</h3>
+  Much like NHibernate or other models where you do declare meta models in code, you create C# classes that represent your
+atifacts like so:
+
+<pre><code>
+public class SimpleHasManyDiagram : ClassDiagram
+{
+    public SimpleHasManyDiagram()
+    {
+        this.AddClass<person>();
+    }
+}
+public class Person
+{
+    public IList<hand> Hands { get; set; }
+}
+public class Hand
+{
+            
+}
+</code></pre>
+
+<p>
+    Now that you have you a compiled assembly containing NPlant artifacts you have a few options for generating the diagram.
+    The easy is to use NPlat.UI.exe, but we always ship a handy NAnt task that makes generating images in bulk much easier.
+</p>
+
+<h4>Using NPlant.UI.exe</h4>
+<p>Launch NPlant.UI.exe and open your assembly via the File -> Open menu:</p>
+<img src="@Url.Content("~/Content/ui-open.png")" />
+<p>Select the diagram you're interested in viewing:</p>
+<img src="@Url.Content("~/Content/ui-opening.png")" />
+<p>The left most text box will show you the generated PlantUML.  You can generate an image directly from the UI by clicking the Generate button:</p>
+<img src="@Url.Content("~/Content/ui-opened.png")" />
+
+A few things to note:  This tool assumes you have Java installed and in your PATH (or optionally by specifying it's location via the Options -> Setting menu).  It also asssumes you have Graphviz installed (a prereq of PlantUML).  Use the Help menu in the UI to help find and install these components.
+<h4>Using NAnt</h4>
+<p><a href="http://nant.sourceforge.net/" target="_blank">NAnt</a> is a .NET port of <a href="http://ant.apache.org/" target="_blank">Ant</a> and is a very popular build scripting tool.</p>
+
+<code>
+    <pre>
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;project name=&quot;test&quot; default=&quot;main&quot; basedir=&quot;.&quot;&gt;
+	&lt;loadtasks assembly=&quot;..\bin\Debug\NPlant.NAntTasks.dll&quot; /&gt;
+	
+	&lt;property name=&quot;plantuml&quot; value=&quot;..\bin\Debug\plantuml.jar&quot; /&gt;
+	&lt;property name=&quot;diagram.assembly&quot; value=&quot;..\bin\Debug\NPlant.Samples.dll&quot; /&gt;
+	&lt;property name=&quot;out.dir&quot; value=&quot;Generation&quot; /&gt;
+	&lt;property name=&quot;java&quot; value=&quot;C:\Program Files\Java\jre7\bin\java.exe&quot; /&gt;
+	&lt;target name=&quot;main&quot;&gt;
+		&lt;nplant assembly=&quot;${diagram.assembly}&quot; dir=&quot;${out.dir}&quot; java=&quot;${java}&quot; plantuml=&quot;${plantuml}&quot; clean=&quot;true&quot; categorize=&quot;namespace&quot; verbose=&quot;true&quot; /&gt;
+	&lt;/target&gt;
+&lt;/project&gt;
+    </pre>
+</code>
+<p>
+This will write an image file in the output directory you specified for each diagram found in the assembly you specified.</p>
+
+<h3>What's the license?</h3>
+<p>
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+</p>
+
+<p>http://www.apache.org/licenses/LICENSE-2.0</p>
+
+<p>
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+</p>
+
+<p>
+    I'm only interested in protecting myself and the effort I've put into this personally.  I want to have this as
+    widely available as possible.  If this license isn't acceptable for you and your usage, let me know - I would like to
+    try to accommodate you if I can.
+</p>

@@ -1,5 +1,8 @@
-﻿namespace NPlant.Web.Models.Samples
+﻿using System;
+
+namespace NPlant.Web.Models.Samples
 {
+    [Serializable]
     public class SampleModel
     {
         public SampleModel(string id, string name, string description)

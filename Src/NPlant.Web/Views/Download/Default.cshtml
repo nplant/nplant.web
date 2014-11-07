@@ -1,5 +1,19 @@
 ﻿@{
     ViewBag.Title = "Downloads";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<p>&nbsp;</p>
+<p>You can get NPlant from <a href="http://www.nuget.org">nuget</a>. Its distributed in two different packages:</p>
+
+<div class="nuget-badge">
+    <p>
+        <code>PM> Install-Package NPlant.API</code>
+    </p>
+</div>
+<p><a href="http://www.nuget.org/packages/NPlant.API/" target="_blank">NPlant API</a>: Contains NPlant.dll and NPlant.UI.exe.  If you're building NPlant diagrams and running them locally this is the package you probably want.</p>
+
+<div class="nuget-badge">
+    <p>
+        <code>PM> Install-Package NPlant.NAnt</code>
+    </p>
+</div>
+<p><a href="http://www.nuget.org/packages/NPlant.Nant/" target="_blank">NPlant NAnt</a>:  Contains NPlant.dll, NPlant.UI.exe, and NPlant.NAnt.dll.  You'll want this if you want to usese NPlant with your CI process</p>

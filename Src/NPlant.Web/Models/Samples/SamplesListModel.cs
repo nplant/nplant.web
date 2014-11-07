@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NPlant.Web.Models.Samples
 {
+    [Serializable]
     public class SamplesListModel
     {
         private readonly List<SampleGroupModel> _groups = new List<SampleGroupModel>();

@@ -1,5 +1,8 @@
-﻿namespace NPlant.Web.Models.Samples
+﻿using System;
+
+namespace NPlant.Web.Models.Samples
 {
+    [Serializable]
     public class CompileResult
     {
         public bool Successful { get; set; }
@@ -8,6 +11,7 @@
         public string Message { get; set; }
     }
 
+    [Serializable]
     public class CompileError
     {
         public int Column { get; set; }

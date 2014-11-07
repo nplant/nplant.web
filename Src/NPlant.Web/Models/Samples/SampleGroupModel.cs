@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace NPlant.Web.Models.Samples
 {
+    [Serializable]
     public class SampleGroupModel
     {
         private readonly List<SampleModel> _samples = new List<SampleModel>();

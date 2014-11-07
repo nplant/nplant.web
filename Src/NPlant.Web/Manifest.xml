@@ -338,11 +338,6 @@ namespace NPlant.Samples.FullMonty
 
     public class Baz2<T1, T2>
     {
-        public Baz2()
-        {
-            this.Whatever = typeof (T1).Name + typeof (T2).Name;
-        }
-
         public string Whatever;
     }
 

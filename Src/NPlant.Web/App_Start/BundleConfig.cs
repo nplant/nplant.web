@@ -12,6 +12,7 @@ namespace NPlant.Web
                 new ScriptBundle("~/bundles/ace")
                     .Include("~/Scripts/ace.js")
                     .Include("~/Scripts/mode-csharp.js")
+                    .Include("~/Scripts/mode-xml.js")
                     .Include("~/Scripts/theme-github.js")
                 );
 
